@@ -45,19 +45,16 @@ All of the properties are required.
 
 The linkedin.button tag outputs a link that will prompt your users to authenticate with LinkedIn when it is clicked.
 
-`
 #{linkedin.button label:'Login using your LinkedIn account.' /}
-`
 
-* @label@ which defaults to *Sign in with LinkedIn*
-* @cssClass@ which defaults to *play-linkedin-button*
+* label which defaults to *Sign in with LinkedIn*
+* cssClass which defaults to *play-linkedin-button*
 
 
 ### Define your OAuth callback
 
-Your @linkedin.model@ class needs to implement a static method called @linkedinOAuthCallback@. After a user has authenticated using LinkedIn, the module will call this method with a token (String). This is your opportunity to add the user to your database, add the user to your session, or do anything else you want.
+Your linkedin.model class needs to implement a static method called @linkedinOAuthCallback@. After a user has authenticated using LinkedIn, the module will call this method with a token (String). This is your opportunity to add the user to your database, add the user to your session, or do anything else you want.
 
-```
 public static void linkedinOAuthCallback(String token) {
 	Logger.info("Handle LinkedIn OAuth Callback: " + token);
 	User user = findByLinkedInToken(token);
@@ -73,5 +70,4 @@ public static void linkedinOAuthCallback(String token) {
 	}
 	Session.current().put("username", token);
 }
-```
 
