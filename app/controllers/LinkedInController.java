@@ -185,7 +185,7 @@ public class LinkedInController extends Controller {
 				Method method = model.getMethod("linkedinOAuthCallback",
 						new Class[] { LinkedInProfile.class });
 				if (Modifier.isStatic(method.getModifiers())) {
-					method.invoke(null, p, accessToken.getToken());
+					method.invoke(null, p);
 
 				} else {
 					throw new UnexpectedException(

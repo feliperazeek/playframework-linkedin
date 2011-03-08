@@ -53,25 +53,32 @@ The linkedin.button tag outputs a link that will prompt your users to authentica
 
 Your linkedin.model class needs to implement a static method called @linkedinOAuthCallback@. After a user has authenticated using LinkedIn, the module will call this method with a token (String). This is your opportunity to add the user to your database, add the user to your session, or do anything else you want.
 
+		    public static User findByLinkedInId(String linkedInId) {
+		    	return find("byLinkedInId", linkedInId).first();
+		    }
+		    
 			public static void linkedinOAuthCallback(play.modules.linkedin.LinkedInProfile profile) {
-				Logger.info("Handle LinkedIn OAuth Callback: " + token);
-				User user = findByLinkedInToken(profile.getAccessToken());
+				Logger.info("Handle LinkedIn OAuth Callback: " + profile);
+				User user = findByLinkedInId(profile.getId());
+				String username = "linkedin:" + profile.getId();
 				if(user == null || user.linkedInToken == null) {
 					user = new User();
-					user.firstName = profile.getFirstName();
-					user.lastName = profile.getLastName();
+					user.fullname = (new StringBuffer().append(profile.getFirstName()).append(" ").append(profile.getLastName())).toString();
 					user.linkedInId = profile.getId();
 					user.industry = profile.getIndustry();
 					user.headline = profile.getHeadline();
 					user.pictureUrl = profile.getPictureUrl();
-					user.linkedInToken = token;
+					user.linkedInToken = profile.getAccessToken();
+					user.isAdmin = true;
 					user = user.save();
 				} else {
 					Logger.info("Found User: " + user);
+					user.linkedInToken = profile.getAccessToken();
+					user.save();
 				}
 				if ( user == null ) {
-					throw new RuntimeException("Could not store or lookup user with LinkedIn token " + token);
+					throw new RuntimeException("Could not store or lookup user with LinkedIn Profile: " + profile);
 				}
-				Session.current().put("username", token);
+				Session.current().put("username", username);
 			}
 
