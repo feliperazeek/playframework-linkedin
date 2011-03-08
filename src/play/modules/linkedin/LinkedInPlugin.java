@@ -7,21 +7,29 @@ import play.PlayPlugin;
 import play.exceptions.UnexpectedException;
 import play.mvc.Router;
 
+/**
+ * The Class LinkedInPlugin.
+ * 
+ * @author Felipe Oliveira (http://geeks.aretotally.in)
+ * @copyright Felipe Oliveira (http://geeks.aretotally.in)
+ */
 public class LinkedInPlugin extends PlayPlugin {
     
-    private static ThreadLocal<LinkedInSession> _session = new ThreadLocal<LinkedInSession>();
-    
-    public LinkedInSession session(){
-        return _session.get();
-    }
-    
+    /**
+     * Start
+     * 
+     * @see play.PlayPlugin#onApplicationStart()
+     */
     @Override
     public void onApplicationStart() {
-    	LinkedInSession session = new LinkedInSession();
-        session.init();
-        _session.set(session);
+    	// Do Nothing
     }
     
+    /**
+     * Routes
+     * 
+     * @see play.PlayPlugin#onRoutesLoaded()
+     */
     @Override
     public void onRoutesLoaded() {
         Router.addRoute("GET", "/linkedin/login", "LinkedInController.login");

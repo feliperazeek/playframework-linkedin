@@ -55,11 +55,17 @@ The linkedin.button tag outputs a link that will prompt your users to authentica
 
 Your linkedin.model class needs to implement a static method called @linkedinOAuthCallback@. After a user has authenticated using LinkedIn, the module will call this method with a token (String). This is your opportunity to add the user to your database, add the user to your session, or do anything else you want.
 
-public static void linkedinOAuthCallback(String token) {
+public static void linkedinOAuthCallback(play.modules.linkedin.LinkedInProfile profile) {
 	Logger.info("Handle LinkedIn OAuth Callback: " + token);
-	User user = findByLinkedInToken(token);
+	User user = findByLinkedInToken(profile.getAccessToken());
 	if(user == null || user.linkedInToken == null) {
 		user = new User();
+		user.firstName = profile.getFirstName();
+		user.lastName = profile.getLastName();
+		user.linkedInId = profile.getId();
+		user.industry = profile.getIndustry();
+		user.headline = profile.getHeadline();
+		user.pictureUrl = profile.getPictureUrl();
 		user.linkedInToken = token;
 		user = user.save();
 	} else {

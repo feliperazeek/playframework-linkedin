@@ -9,22 +9,38 @@ import play.mvc.Router;
 import play.templates.FastTags;
 import play.templates.GroovyTemplate.ExecutableTemplate;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LinkedInTags.
+ * 
+ * @author Felipe Oliveira (http://geeks.aretotally.in)
+ * @copyright Felipe Oliveira (http://geeks.aretotally.in)
+ */
 @FastTags.Namespace("linkedin")
 public class LinkedInTags extends FastTags {
 
+	/**
+	 * LinkedIn Login Tag
+	 * 
+	 * @param args
+	 *            the args
+	 * @param body
+	 *            the body
+	 * @param out
+	 *            the out
+	 * @param template
+	 *            the template
+	 * @param fromLine
+	 *            the from line
+	 */
 	public static void _button(Map<?, ?> args, Closure body, PrintWriter out,
 			ExecutableTemplate template, int fromLine) {
 		Object labelArg = args.get("label");
 		Object classArg = args.get("cssClass");
-		Object scopeArg = args.get("scope");
 		String label = labelArg != null ? labelArg.toString()
-				: "Sign in with LinkedIn";
+				: "<img src='http://developer.linkedin.com/servlet/JiveServlet/downloadImage/102-1182-2-1070/152-21/log-in-linkedin-small.png' border='0'>";
 		String className = classArg != null ? classArg.toString()
 				: "play-linkedin-button";
-		String scope = scopeArg != null ? scopeArg.toString() : null;
-		// String url =
-		// Play.plugin(LinkedInPlugin.class).session().getLoginUrl(scope);
-		// out.println("<a href='"+url+"' class='"+className+"'>"+label+"</a>");
 		out.println("<a href='" + Router.getFullUrl("LinkedInController.login")
 				+ "' class='" + className + "'>" + label + "</a>");
 	}
