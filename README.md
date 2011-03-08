@@ -1,6 +1,9 @@
 # Play Framework - Module play-linkedin
+by Felipe Oliveira
+http://geeks.aretotally.in
+http://twitter.com/_felipera
 
-Easily integrate LinkedIn authentication into any Play application.
+Easily integrate LinkedIn's OAuth authentication into any Java web application using the super cool Play Framework (http://playframework.org).
 
 
 ## Prerequisites
@@ -22,7 +25,7 @@ play install linkedin
 After installing the module, add the following to your application.conf to enable it:
 
 `
-module.linkedin=${play.path}/modules/linkedin
+module.linkedin=${play.path}/modules/linkedin-0.2.1
 `
 
 ### Configure the module
@@ -43,9 +46,9 @@ All of the properties are required.
 
 The linkedin.button tag outputs a link that will prompt your users to authenticate with LinkedIn when it is clicked.
 
-`#{linkedin.button label:'Login using your LinkedIn account.' /}`
+`#{linkedin.button /}`
 
-* label which defaults to *Sign in with LinkedIn*
+* label which defaults to button *http://developer.linkedin.com/servlet/JiveServlet/downloadImage/102-1182-2-1070/152-21/log-in-linkedin-small.png*
 * cssClass which defaults to *play-linkedin-button*
 
 
